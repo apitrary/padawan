@@ -1,0 +1,16 @@
+#!/usr/bin/php
+<?php
+
+set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/../src');
+
+spl_autoload_register(function($class) {
+	$path = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+	include $path . '.php';
+});
+
+$input = new \Apitrary\Term\Input($argv);
+$input->attach(new \Apitrary\Command\Show());
+$input->attach(new \Apitrary\Command\Display());
+$input->attach(new \Apitrary\Command\Insert());
+$input->attach(new \Apitrary\Command\Remove());
+print $input->output();
